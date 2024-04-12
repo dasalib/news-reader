@@ -2,50 +2,58 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Records from './components/Records/Records';
 import ArticleDetails from './ArticleDetails';
-import Pagination from './Pagination';
-// import Sort from './Sort';
+import Pagination from './components/Pagination';
+import './App.css';
 
 function App() {
-  const [articles, setArticles] = useState([]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  // // const [sortBy, setSortBy] = useState('relevance');
-  // const [sortDirection, setSortDirection] = useState('desc');
+  const [selectedArticle, setSelectedArticle] = useState(null);
+  const totalPages = 100;
 
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=kazakhstan&page=${currentPage}`,
-        {
-          headers: {
-            'api-key': 'e5kqlQpYfI6InpMTOf7zVE81M5ztuRA6',
-          },
-        }
+        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=kazakhstan&api-key=e5kqlQpYfI6InpMTOf7zVE81M5ztuRA6&page=${currentPage}&page_size=15`
       );
 
-      setArticles(response.data.response.docs);
+      // Parse the search results into an array of objects
+      const records = response.data.response.docs.map((doc) => {
+        return {
+          web_url: doc.web_url,
+          title: doc.headline.main,
+          abstract: doc.abstract,
+          pub_date: doc.pub_date,
+          byline: doc.byline.original,
+          multimedia: doc.multimedia,
+        };
+      });
+
+      setData(records);
+      setLoading(false);
     }
 
     fetchData();
-  }, [currentPage, sortDirection]);
+  }, [currentPage]);
 
-  // function handleSortChange(sortBy, sortDirection) {
-  //   setSortBy(sortBy);
-  //   setSortDirection(sortDirection);
-  //   setCurrentPage(1);
-  // }
+  const handleArticleClick = (article) => {
+    setSelectedArticle(article);
+  };
 
-  function handlePageChange(page) {
+  const handlePageChange = (page) => {
     setCurrentPage(page);
-  }
+  };
 
   return (
     <div className="App">
-      {/* <Sort onSortChange={handleSortChange} /> */}
-      <Records articles={articles} onArticleClick={(article) => setSelectedArticle(article)} />
-      <Pagination currentPage={currentPage} totalPages={Math.ceil(response.data.response.meta.hits / 10)} onPageChange={handlePageChange} />
+      <h1>Kazakhstan News</h1>
       {selectedArticle && <ArticleDetails article={selectedArticle} onClose={() => setSelectedArticle(null)} />}
+      {loading ? <p>Loading...</p> : <Records records={data} onArticleClick={handleArticleClick} />}
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
 }
+
 
 export default App;

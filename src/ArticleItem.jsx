@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ArticleItem = ({ record }) => {
+const ArticleItem = ({ record, onClick }) => {
   const { web_url, title, abstract, pub_date, byline, multimedia } = record;
 
   return (
-    <div>
+    <div onClick={onClick}>
       <h2>
         <a href={web_url} target="_blank" rel="noopener noreferrer">
           {title}

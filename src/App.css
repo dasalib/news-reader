@@ -1,0 +1,100 @@
+.App {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 2rem;
+  }
+  
+  .records-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+  }
+  
+  .article-item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .article-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .abstract {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  .pub-date {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #999;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    border-radius: 5px;
+  }
+  
+  .article-details {
+    margin-top: 2rem;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .read-more-button {
+    display: block;
+    margin-top: 2rem;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .read-more-button:hover {
+    background-color: #444;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .pagination button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  

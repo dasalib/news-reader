@@ -1,18 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Records.css';
+import ArticleItem from '../../ArticleItem';
+import './Records.css'
 
-const Records = ({ articles }) => {
+const Records = ({ records,onArticleClick }) => {
   return (
-    <div>
-      {articles.map((article) => (
-        <div key={article.id}>
-          <Link to={`/articles/${article.id}`}>
-            <h2>{article.title}</h2>
-            <p>{article.abstract}</p>
-            <p>{article.published_date}</p>
-          </Link>
-        </div>
+    <div className="records-grid">
+      {records.map((record) => (
+        <ArticleItem key={record.web_url} record={record} onClick={() => onArticleClick(record)}/>
       ))}
     </div>
   );

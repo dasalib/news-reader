@@ -1,23 +1,23 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
-const ArticleDetails = ({ articles }) => {
-  const { articleId } = useParams();
-  const article = articles.find((a) => a.id === articleId);
-
-  if (!article) {
-    return <p>Article not found</p>;
-  }
+const ArticleDetails = ({ article, onClose }) => {
+  const { web_url, title, abstract, pub_date, byline, multimedia } = article;
 
   return (
-    <div>
-      <h1>{article.title}</h1>
-      <p>{article.abstract}</p>
-      <p>{article.published_date}</p>
-      <p>{article.byline}</p>
-      <img src={article.multimedia[0].url} alt={article.title} />
-      <p>{article.lead_paragraph}</p>
-      <p>{article.body}</p>
+    <div className="article-details">
+      <button onClick={onClose}>Close</button>
+      <h2 className='title'>{title}</h2>
+      <p className='abstract'>{abstract}</p>
+      <p className='pub-date'>{pub_date} - {byline}</p>
+      {multimedia.length > 0 && (
+        <img
+          src={multimedia[0].url}
+          alt={title}
+          width={multimedia[0].width}
+          height={multimedia[0].height}
+        />
+      )}
+      <a href={web_url} target="_blank" rel="noopener noreferrer" className="read-more-button">Read More</a>
     </div>
   );
 };
